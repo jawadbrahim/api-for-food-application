@@ -37,7 +37,7 @@ class OrmSqlalchemyFoodCategory(AbstractionDataAccess):
         }
         # set_cache(cache_key, food_data)
         return food_data
-    return None
+    
 
  
  def get_food_by_group(self):
@@ -76,7 +76,6 @@ class OrmSqlalchemyFoodCategory(AbstractionDataAccess):
             food.description = description
             food.picture = picture
             food.ingredients = ingredients
-            db.session.flush()
             db.session.commit()
             return food 
         else:

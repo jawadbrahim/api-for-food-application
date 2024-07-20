@@ -4,12 +4,10 @@ from sqlalchemy.dialects.postgresql import UUID
 import datetime
 from dataclasses import dataclass
 
+
+
+
 @dataclass
-class FoodStatus:
-    ACTIVE='ACTIVE'
-    DELETED="DELETED"
-
-
 
 class Foods(db.Model):
     
@@ -21,5 +19,3 @@ class Foods(db.Model):
     ingredients = db.Column(db.String(1000))
     created_at=db.Column(db.DateTime,default=datetime.datetime.now(datetime.timezone.utc))
     updated_at = db.Column(db.DateTime, nullable=True)
-    status=db.Column(db.String,default=FoodStatus.ACTIVE)
-    
