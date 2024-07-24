@@ -1,6 +1,7 @@
 from .abstraction import AbstractionFoodService
 from ..exceptions import FoodFailedToCreate,FoodNotExist,GroupedFoodIsEmpty,TitleNotFound
 class DefaultFoodService(AbstractionFoodService):
+    #DI
     def __init__(self, data_access):
         self.data_access = data_access
 

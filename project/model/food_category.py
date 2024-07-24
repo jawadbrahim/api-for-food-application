@@ -1,14 +1,7 @@
 from database.postgres import db
-import uuid
-from sqlalchemy.dialects.postgresql import UUID
 import datetime
 from dataclasses import dataclass
-
-
-
-
 @dataclass
-
 class Foods(db.Model):
     
     id = db.Column(db.Integer, primary_key=True)
