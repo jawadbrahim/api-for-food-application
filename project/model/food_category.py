@@ -11,4 +11,4 @@ class Foods(db.Model):
     picture = db.Column(db.String(600))
     ingredients = db.Column(db.String(1000))
     created_at=db.Column(db.DateTime,default=datetime.datetime.now(datetime.timezone.utc))
-    updated_at = db.Column(db.DateTime, nullable=True)
+    updated_at = db.Column(db.DateTime,default=datetime.datetime.now(datetime.timezone.utc))
