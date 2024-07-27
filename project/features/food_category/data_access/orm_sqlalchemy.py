@@ -1,7 +1,7 @@
 from .abstraction import AbstractionDataAccess
 from project.model.food_category import Foods
 from database.postgres import db
-import json
+from datetime import datetime
 from ....cache.redis_cache import set_cache,get_cache
 
 
@@ -76,6 +76,7 @@ class OrmSqlalchemyFoodCategory(AbstractionDataAccess):
             food.description = description
             food.picture = picture
             food.ingredients = ingredients
+            food.updated_at =  datetime.utcnow()
             db.session.commit()
             return food 
         else:
