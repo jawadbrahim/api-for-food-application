@@ -76,7 +76,6 @@ class OrmSqlalchemyFoodCategory(AbstractionDataAccess):
             food.description = description
             food.picture = picture
             food.ingredients = ingredients
-            food.updated_at =  datetime.utcnow()
             db.session.commit()
             return food 
         else:
