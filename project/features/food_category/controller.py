@@ -53,7 +53,7 @@ class FoodController:
     def delete_food(self, food_id):
         try:
             deleted_food = self.food_service.delete_food(food_id)
-            return deleted_food
+            return self.response_serializer.serialize_delete_food(deleted_food)
         except FoodError as e:
             return jsonify({"error": e.to_dict()})
 

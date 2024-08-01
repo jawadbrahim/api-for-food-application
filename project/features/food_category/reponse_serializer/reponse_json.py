@@ -1,10 +1,9 @@
 from .abstraction import AbstractionReponseSerializer
-from .reponse_serializer_models import ModelReponse_serialize, FoodUpdateSerializer
-from project.model.food_category import Foods
-from project.features.food_category.data_classes import FoodDataclasses, FoodUpdatedDataClasses
+from .reponse_serializer_models import ModelReponse_serialize, FoodUpdateSerializer,DeletedFoodSerializer
+from project.features.food_category.data_classes import FoodDataclasses, FoodUpdatedDataClasses,FoodDeletedDataClasse
 
 class Reponse_json(AbstractionReponseSerializer):
-    def serialize_create_food(self, food: Foods) -> str:
+    def serialize_create_food(self, food):
         food_data = FoodDataclasses(
             id=food.id,
             category=food.category,
@@ -16,7 +15,7 @@ class Reponse_json(AbstractionReponseSerializer):
         response = ModelReponse_serialize(food=food_data)
         return response.json()
 
-    def serialize_update_food(self, updated_food) -> str:
+    def serialize_update_food(self, updated_food):
         updated_foods = FoodUpdatedDataClasses(
         
             category=updated_food.category,
@@ -27,4 +26,10 @@ class Reponse_json(AbstractionReponseSerializer):
             )
         
         response = FoodUpdateSerializer(updated_food=updated_foods)
+        return response.json()
+    def serialize_delete_food(self, food):
+        food_data = FoodDeletedDataClasse(
+            id=food.id
+        )
+        response = DeletedFoodSerializer(food=food_data)
         return response.json()

@@ -1,5 +1,6 @@
-from ..data_classes import FoodDataclasses,FoodUpdatedDataClasses
+from project.features.food_category.data_classes import FoodDataclasses,FoodUpdatedDataClasses,FoodDeletedDataClasse
 from pydantic import BaseModel
+
 
 class ModelReponse_serialize(BaseModel):
 
@@ -7,3 +8,5 @@ class ModelReponse_serialize(BaseModel):
 class FoodUpdateSerializer(BaseModel):
 
     updated_food:FoodUpdatedDataClasses
+class DeletedFoodSerializer(BaseModel):
+    food: FoodDeletedDataClasse
