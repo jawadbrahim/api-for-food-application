@@ -2,7 +2,7 @@ from .abstraction import AbstractionDataAccess
 from project.model.food_category import Foods
 from database.postgres import db
 from datetime import datetime
-from ....cache.redis_cache import set_cache,get_cache
+
 
 
 class OrmSqlalchemyFoodCategory(AbstractionDataAccess):
@@ -20,11 +20,6 @@ class OrmSqlalchemyFoodCategory(AbstractionDataAccess):
         db.session.commit()
         return food
  def get_food_by_id(self, food_id):
-    # cache_key = f"food:{food_id}"
-    # cached_data = get_cache(cache_key)
-    # if cached_data:
-        # return json.loads(cached_data)
-    
     food = Foods.query.filter(Foods.id == food_id).first()
     if food:
         food_data = {
@@ -35,17 +30,11 @@ class OrmSqlalchemyFoodCategory(AbstractionDataAccess):
             "picture": food.picture,
             "ingredients": food.ingredients
         }
-        # set_cache(cache_key, food_data)
         return food_data
     
 
  
  def get_food_by_group(self):
-    #  cache_key="food:gruped"
-    #  cache_date=get_cache(cache_key)
-    #  if cache_date:
-        #   return json.loads(cache_date)
-     
      foods=Foods.query.all()
      
      grouped_food={}
@@ -66,7 +55,6 @@ class OrmSqlalchemyFoodCategory(AbstractionDataAccess):
     
     
         grouped_food[category].append(food_data)
-        # set_cache(cache_key,grouped_food)
      return grouped_food
  def update_food(self, food_id, category, title, description, picture, ingredients):
         food = Foods.query.filter_by(id=food_id).first()
@@ -89,11 +77,6 @@ class OrmSqlalchemyFoodCategory(AbstractionDataAccess):
            
         
  def search_food(self, title):
-    # cache_key = f"food:search:{title}"
-    # cached_data = get_cache(cache_key)
-    # if cached_data:
-        # return json.loads(cached_data)
-    
     search = Foods.query.filter(Foods.title.ilike(f"%{title}%")).all()
     if search:
         search_results = [
@@ -107,14 +90,4 @@ class OrmSqlalchemyFoodCategory(AbstractionDataAccess):
             }
             for food in search
         ]
-        # set_cache(cache_key, search_results)
         return search_results
-    
-                
-            
-    
-
-
-        
-     
- 
