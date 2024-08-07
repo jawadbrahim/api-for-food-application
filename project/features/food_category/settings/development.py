@@ -3,7 +3,7 @@ from .options import (OrmSqlalchemyOption,DefaultServiceOption,SerializerOption,
 
 
 class Development:
-  Orm_sqlalchemy = OrmSqlalchemyOption.ORM_SQLALCHEMY
-  Default_service = DefaultServiceOption.DEFAULT
-  Serialize=SerializerOption.PYDANTIC_JSON
-  Request_validator=RequestValidateOption.PYDANTIC_MODEL
+  ORMSQLALCHEMY = OrmSqlalchemyOption.ORM_SQLALCHEMY
+  DEFAULT_SERVICE = DefaultServiceOption.DEFAULT
+  SERIALIZE=SerializerOption.PYDANTIC_JSON
+  REQUEST_VALIDATOR=RequestValidateOption.PYDANTIC_MODEL

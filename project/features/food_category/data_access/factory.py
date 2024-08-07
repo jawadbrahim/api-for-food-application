@@ -8,7 +8,7 @@ from .mock import MockDataAccess
 class FactoryDataAccess:
 
     @staticmethod
-    def build_object(service = Development.Orm_sqlalchemy):
+    def build_object(service = Development.ORMSQLALCHEMY):
         if service == OrmSqlalchemyOption.ORM_SQLALCHEMY:
             return OrmSqlalchemyFoodCategory()
         

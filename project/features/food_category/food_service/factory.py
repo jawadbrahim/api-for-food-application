@@ -6,7 +6,7 @@ from .mock import MockFoodService
 
 class FactoryFoodService:
     @staticmethod
-    def build_object(data_access, service=Development.Default_service):
+    def build_object(data_access, service=Development.DEFAULT_SERVICE):
         if service == DefaultServiceOption.DEFAULT:
             return DefaultFoodService(data_access)
         if service == DefaultServiceOption.MOCK:

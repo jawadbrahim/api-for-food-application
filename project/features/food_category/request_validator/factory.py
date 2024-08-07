@@ -7,7 +7,7 @@ from ..settings.options import RequestValidateOption
 class FactoryReqeustValidator():
 
     @staticmethod
-    def build_object(service=Development.Request_validator):
+    def build_object(service=Development.REQUEST_VALIDATOR):
         if service == RequestValidateOption.PYDANTIC_MODEL:
             return RequestValidator()
         raise NotImplementedError()

@@ -20,8 +20,9 @@ class FoodController:
                 validated_data.picture,
                 validated_data.ingredients
             )
-           
+            self.data_access.commit()
             return self.response_serializer.serialize_create_food(food)
+            
         
         except FoodError as e:
             return jsonify({"error": e.to_dict()})
@@ -61,6 +62,7 @@ class FoodController:
                 validated_data.picture,
                 validated_data.ingredients
             )
+            self.data_access.commit()
             return self.response_serializer.serialize_update_food(updated_food)
         except FoodError as e:
             return jsonify({"error": e.to_dict()})
@@ -68,6 +70,7 @@ class FoodController:
     def delete_food(self, food_id):
         try:
             deleted_food = self.food_service.delete_food(food_id)
+            self.data_access.commit()
             return self.response_serializer.serialize_delete_food(deleted_food)
         except FoodError as e:
             return jsonify({"error": e.to_dict()})

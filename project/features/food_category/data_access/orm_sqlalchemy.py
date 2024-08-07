@@ -1,11 +1,11 @@
 from .abstraction import AbstractionDataAccess
 from project.model.food_category import Foods
 from database.postgres import db
-from datetime import datetime
+from project.module.ormsqlachemy import OrmSqlalchemy
 
 
 
-class OrmSqlalchemyFoodCategory(AbstractionDataAccess):
+class OrmSqlalchemyFoodCategory(AbstractionDataAccess,OrmSqlalchemy):
 
  def create_food(self, category, title, description, picture, ingredients):
         food = Foods(
@@ -15,9 +15,7 @@ class OrmSqlalchemyFoodCategory(AbstractionDataAccess):
             picture=picture,
             ingredients=ingredients,
         )
-        db.session.add(food)
-        db.session.flush()
-        db.session.commit()
+        self.add(food)
         return food
  def get_food_by_id(self, food_id):
     food = Foods.query.filter(Foods.id == food_id).first()
@@ -64,15 +62,13 @@ class OrmSqlalchemyFoodCategory(AbstractionDataAccess):
             food.description = description
             food.picture = picture
             food.ingredients = ingredients
-            db.session.commit()
             return food 
         else:
             return None
  def delete_food(self, food_id):
         food = Foods.query.filter(Foods.id == food_id).first()
         if food:
-            db.session.delete(food)
-            db.session.commit()
+            self.delete(food)
         return food
            
         
