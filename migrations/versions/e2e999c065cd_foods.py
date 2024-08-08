@@ -1,8 +1,8 @@
 """foods
 
-Revision ID: 392530f48815
+Revision ID: e2e999c065cd
 Revises: 
-Create Date: 2024-07-02 08:54:27.390703
+Create Date: 2024-08-08 13:25:14.779723
 
 """
 from alembic import op
@@ -10,7 +10,7 @@ import sqlalchemy as sa
 
 
 # revision identifiers, used by Alembic.
-revision = '392530f48815'
+revision = 'e2e999c065cd'
 down_revision = None
 branch_labels = None
 depends_on = None
@@ -27,7 +27,6 @@ def upgrade():
     sa.Column('ingredients', sa.String(length=1000), nullable=True),
     sa.Column('created_at', sa.DateTime(), nullable=True),
     sa.Column('updated_at', sa.DateTime(), nullable=True),
-    sa.Column('status', sa.String(), nullable=True),
     sa.PrimaryKeyConstraint('id')
     )
     # ### end Alembic commands ###
