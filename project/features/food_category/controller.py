@@ -3,7 +3,7 @@ from .data_access.factory import FactoryDataAccess
 from .reponse_serializer.factory import FactoryReponseSerializer
 from flask import jsonify
 from ...module.exception_form import FoodError
-from project.cache.redis_cache import Rediscache
+from project.redis.redis_cache import Rediscache
 class FoodController:
     def __init__(self):
         self.data_access = FactoryDataAccess.build_object()
