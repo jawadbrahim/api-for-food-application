@@ -2,7 +2,7 @@ from .food_service.factory import FactoryFoodService
 from .data_access.factory import FactoryDataAccess
 from .reponse_serializer.factory import FactoryReponseSerializer
 from flask import jsonify
-from ...module.exception_form import FoodError
+from .exceptions import FoodFailedToCreate,FoodNotExist,GroupedFoodIsEmpty,TitleNotFound
 from project.redis.redis_cache import Rediscache
 class FoodController:
     def __init__(self):
@@ -24,7 +24,7 @@ class FoodController:
             return self.response_serializer.serialize_create_food(food)
             
         
-        except FoodError as e:
+        except (FoodFailedToCreate,Exception) as e:
             return jsonify({"error": e.to_dict()})
 
     def get_foods(self, food_id):
@@ -37,7 +37,7 @@ class FoodController:
             food = self.food_service.get_foods_by_id(food_id)
             self.redis_cache.set_cache(cache_key,food)
             return food
-        except FoodError as e:
+        except (FoodNotExist,Exception) as e:
             return jsonify({"error": e.to_dict()})
 
     def get_grouped_foods(self):
@@ -49,7 +49,7 @@ class FoodController:
             grouped_foods = self.food_service.get_food_by_group()
             self.redis_cache.set_cache(cache_key,grouped_foods)
             return grouped_foods
-        except FoodError as e:
+        except (GroupedFoodIsEmpty, Exception) as e:
             return jsonify({"error": e.to_dict()})
 
     def update_food(self, food_id, validated_data):
@@ -64,7 +64,7 @@ class FoodController:
             )
             self.data_access.commit()
             return self.response_serializer.serialize_update_food(updated_food)
-        except FoodError as e:
+        except (FoodNotExist, Exception) as e:
             return jsonify({"error": e.to_dict()})
 
     def delete_food(self, food_id):
@@ -72,7 +72,7 @@ class FoodController:
             deleted_food = self.food_service.delete_food(food_id)
             self.data_access.commit()
             return self.response_serializer.serialize_delete_food(deleted_food)
-        except FoodError as e:
+        except (FoodNotExist,Exception) as e:
             return jsonify({"error": e.to_dict()})
 
     def search_food(self, title):
@@ -84,5 +84,5 @@ class FoodController:
             searched_food = self.food_service.search_food(title)
             self.redis_cache.set_cache(cache_key,searched_food)
             return searched_food
-        except FoodError as e:
+        except (TitleNotFound,Exception) as e:
             return jsonify({"error": e.to_dict()})

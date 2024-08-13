@@ -1,14 +1,23 @@
-class FoodError(Exception):
-    def __init__(self, description, http_code, **kwargs):
-        super().__init__(description)
-        self.description = description
-        self.http_code = http_code
-        self.extra_data = kwargs
+class AppError(Exception):
+    description = "Default description"
+    http_code = 500
+    details = {}
 
+    def __init__(self, **kwargs):
+        super().__init__(self.description)
+        self.set_details(kwargs)
+        if 'http_code' in kwargs:
+            self.http_code = kwargs.pop('http_code', self.http_code)
+
+    def __str__(self):
+        return f"Description: {self.description}, Details: {self.details}, Code: {self.http_code}"
+
+    def set_details(self, kwargs):
+        self.details = kwargs
+    
     def to_dict(self):
-        error_info = {
+        return {
             "description": self.description,
-            "http_code": self.http_code
+            "details": self.details,
+            "code": self.http_code
         }
-        error_info.update(self.extra_data)
-        return error_info

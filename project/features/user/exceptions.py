@@ -1,9 +1,9 @@
-from project.module.exception_form import FoodError
+from project.module.exception_form import AppError
 
 
-class FailedToCreateUser(FoodError):
-     def __init__(self, **kwargs):
-        super().__init__("failet to create user", 404, **kwargs)
-class UserNotExist(FoodError):
-    def __init__(self, **kwargs):
-        super().__init__("user not exixt", 404, **kwargs)
+class FailedToCreateUser(AppError):
+    description="failed to create user"
+    http_code=404
+class UserNotExist(AppError):
+    description="user does not exist"
+    http_code=404

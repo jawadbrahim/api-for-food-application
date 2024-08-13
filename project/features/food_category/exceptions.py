@@ -1,16 +1,15 @@
-from ...module.exception_form import FoodError
+from ...module.exception_form import AppError
 
     
-class FoodFailedToCreate(FoodError):
-    def __init__(self, **kwargs):
-        super().__init__("failet to create food", 404, **kwargs)
-class FoodNotExist(FoodError):
-    def __init__(self, **kwargs):
-        super().__init__("food does not exist", 404, **kwargs)
+class FoodFailedToCreate(AppError):
+   description="filed to create food"
+   http_code=404
+class FoodNotExist(AppError):
+    description="food not found"
+    http_code=404
 
-class GroupedFoodIsEmpty(FoodError):
-    def __init__(self, **kwargs):
-        super().__init__(" category not exist", 404, **kwargs)
-class TitleNotFound(FoodError):
-    def __init__(self,**kwargs):
-        super().__init__("this food not found",404,**kwargs)
+class GroupedFoodIsEmpty(AppError):
+    description="category not found"
+    http_code=404
+class TitleNotFound(AppError):
+   description="title not found"

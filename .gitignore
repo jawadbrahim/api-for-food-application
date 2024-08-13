@@ -5,3 +5,4 @@ Lib/
 Include/
 time.py
 fill_database.py
+pytest.py

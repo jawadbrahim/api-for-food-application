@@ -10,7 +10,9 @@ def create_app(db):
     
     with app.app_context():
         from project.features.food_category.route import foods_bp
+        from project.features.user.route import user_bp
         app.register_blueprint(foods_bp)
+        app.register_blueprint(user_bp)
     
     # print(app.url_map)
     

@@ -17,5 +17,5 @@ class Auth(db.Model):
     password=db.Column(db.String)
     created_at=db.Column(db.DateTime,default=datetime.datetime.now(datetime.timezone.utc))
     status=db.Column(db.String,default=AuthStatus.ACTIVE)
-    user_id=db.Coumn("user_id",UUID(as_uuid=True),db.Foreign_key("user_id"),nullable=True,unique=True)
+    user_id=db.Column("user_id",UUID(as_uuid=True),db.ForeignKey("user.id"),nullable=True,unique=True)
  
