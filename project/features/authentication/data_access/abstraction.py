@@ -2,7 +2,15 @@ import abc
 
 class AbstractionDataAccess(metaclass=abc.ABCMeta):
 
-    def get_email(self):
+    def create_account(self):
         raise NotImplementedError()
-    def get_email_password(self):
+    def get_account(self):
+        raise NotImplementedError()
+    def update_account(self):
+        raise NotImplementedError()
+    def update_token(self):
+        raise NotImplementedError()
+    def delete_account(self):
+        raise NotImplementedError()
+    def verify_password(self):
         raise NotImplementedError()
