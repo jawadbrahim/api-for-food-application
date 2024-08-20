@@ -1,3 +1,7 @@
+
+from flask import jsonify
+
+
 class AppError(Exception):
     description = "Default description"
     http_code = 500

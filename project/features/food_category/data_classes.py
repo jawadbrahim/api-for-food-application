@@ -7,6 +7,7 @@ class FoodDataclasses:
     description: str
     picture: str
     ingredients: str
+    
 
 
 @dataclass

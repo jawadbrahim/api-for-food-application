@@ -1,5 +1,6 @@
 from dataclasses import dataclass
 import uuid
+import datetime
 
 @dataclass
 class UserCreated:

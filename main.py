@@ -1,6 +1,7 @@
 from helpers.app_creation import create_app
 from database.postgres import db
 from flask_migrate import Migrate
+
 app=create_app(db)
 
 migrate=Migrate(app,db)

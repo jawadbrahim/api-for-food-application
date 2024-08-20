@@ -4,6 +4,7 @@ from .reponse_serializer.factory import FactoryReponseSerializer
 from flask import jsonify
 from .exceptions import FoodFailedToCreate,FoodNotExist,GroupedFoodIsEmpty,TitleNotFound
 from project.redis.redis_cache import Rediscache
+from project.module.exception_form import AppError
 class FoodController:
     def __init__(self):
         self.data_access = FactoryDataAccess.build_object()
@@ -12,20 +13,20 @@ class FoodController:
         self.redis_cache=Rediscache()
 
     def create_foods(self, validated_data):
-        try:
-            food = self.food_service.create_foods(
-                validated_data.category,
-                validated_data.title,
-                validated_data.description,
-                validated_data.picture,
-                validated_data.ingredients
-            )
-            self.data_access.commit()
-            return self.response_serializer.serialize_create_food(food)
-            
+     try:
+        food = self.food_service.create_foods(
+            validated_data.category,
+            validated_data.title,
+            validated_data.description,
+            validated_data.picture,
+            validated_data.ingredients
+        )
+        self.data_access.commit()
+        return self.response_serializer.serialize_create_food(food)
         
-        except (FoodFailedToCreate,Exception) as e:
-            return jsonify({"error": e.to_dict()})
+     except (FoodFailedToCreate, Exception) as e:
+        # Handle the error by returning a JSON response with the error message
+        return jsonify({"error": str(e)})
 
     def get_foods(self, food_id):
         cache_key= f"food{food_id}"
@@ -38,7 +39,7 @@ class FoodController:
             self.redis_cache.set_cache(cache_key,food)
             return food
         except (FoodNotExist,Exception) as e:
-            return jsonify({"error": e.to_dict()})
+            return jsonify({"error":e.to_dict()})
 
     def get_grouped_foods(self):
         cache_key= "grouped_food"
@@ -70,8 +71,10 @@ class FoodController:
     def delete_food(self, food_id):
         try:
             deleted_food = self.food_service.delete_food(food_id)
+            
             self.data_access.commit()
             return self.response_serializer.serialize_delete_food(deleted_food)
+        
         except (FoodNotExist,Exception) as e:
             return jsonify({"error": e.to_dict()})
 

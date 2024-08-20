@@ -4,7 +4,7 @@ from .default import DefaultFoodService
 from .mock import MockFoodService
 
 
-class FactoryFoodService:
+class FactoryFoodService():
     @staticmethod
     def build_object(data_access, service=Development.DEFAULT_SERVICE):
         if service == DefaultServiceOption.DEFAULT:

@@ -4,16 +4,16 @@ from project.features.food_category.data_classes import FoodDataclasses, FoodUpd
 
 class Reponse_json(AbstractionReponseSerializer):
     def serialize_create_food(self, food):
-        food_data = FoodDataclasses(
+            food=FoodDataclasses (
             id=food.id,
             category=food.category,
             title=food.title,
             description=food.description,
             picture=food.picture,
             ingredients=food.ingredients
-        )
-        response = ModelReponse_serialize(food=food_data)
-        return response.json()
+            )
+            response=ModelReponse_serialize(food=food)
+            return response.json()
 
     def serialize_update_food(self, updated_food):
         updated_foods = FoodUpdatedDataClasses(

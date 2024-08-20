@@ -7,7 +7,7 @@ from sqlalchemy.dialects.postgresql import UUID
 class UserStatus:
     ACTIVE="ACTIVE"
     DELETE="DELETE"
-@dataclass
+
 class User(db.Model):
 
     id=db.Column(UUID(as_uuid=True),default=uuid.uuid4,primary_key=True)
