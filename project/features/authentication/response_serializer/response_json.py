@@ -6,6 +6,7 @@ class RegisterSerialize(AbstractionResponseSerializer):
     def serialize_register(self, account):
         account = AuthCreated(
             id=account.id,
+            
             email=account.email,
             password=account.password,
             created_at=account.created_at

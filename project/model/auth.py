@@ -11,4 +11,4 @@ class Auth(db.Model):
   password=db.Column(db.String(100))
   created_at=db.Column(db.DateTime,default=datetime.datetime.now(datetime.timezone.utc))
   is_deleted=db.Column(db.Boolean,default=False)
-  user_id=db.Column("user_id",UUID(as_uuid=True),db.ForeignKey("user.id"),nullable=True)
+  token_id = db.Column("token_id", UUID(as_uuid=True), db.ForeignKey("token.id"), unique=True)

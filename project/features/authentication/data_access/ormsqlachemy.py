@@ -7,13 +7,8 @@ from ..data_classes import AuthCreated
 
 class OrmSqlalchemy(AbstractionDataAccess,Orm):
 
-    def create_account(self, email, password, user_id=None):
-     if not user_id:
-        user = User()  # Create a new User record
-        self.add(user)
-        user_id = user.id  # Use the newly created user_id
-    
-     account = Auth(email=email, password=password, user_id=user_id)  # Link to the User ID
+    def create_account(self, email, password):
+     account = Auth(email=email, password=password)  
      self.add(account)
      return account
     def email_exists(self,email):
@@ -32,13 +27,20 @@ class OrmSqlalchemy(AbstractionDataAccess,Orm):
                 "password":auth_email.password
             }
         return account_data
-    def insert_token(self,user_id,token_str):
+    def insert_token(self,token_id,token_str):
         token=Token(
-            user_id=user_id,
+            id=token_id,
             token=token_str
         )
         self.add(token)
         return token
+    def update_token_id(self, auth_id, token_id):
+     auth_record = Auth.query.filter(Auth.id == auth_id).first()
+     if auth_record:
+        auth_record.token_id = token_id  # Here, token_id is the UUID, not the JWT string
+        self.commit()  # Ensure the update is saved
+     return auth_record
+
         
     def delete_account(self,auth_id):
         deleted_account=Auth.query.filter(Auth.id== auth_id).first()

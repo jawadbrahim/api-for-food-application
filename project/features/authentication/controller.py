@@ -22,7 +22,7 @@ class AuthController:
         self.data_access.commit()
         return self.response_serializer.serialize_login(account)
        except (CredentialsMismatch, Exception) as e:
-        return jsonify({"error": str(e)})
+        return jsonify({"error": e.to_dict()})
       def delete_account(self,auth_id):
         try:
          deleted_account=self.auth_serice.delete_account(auth_id)
