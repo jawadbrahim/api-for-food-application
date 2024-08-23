@@ -1,2 +1,2 @@
 from flask import Blueprint
-register_bp=Blueprint("register",__name__)
+auth_bp=Blueprint("auth",__name__)

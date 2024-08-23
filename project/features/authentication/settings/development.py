@@ -1,0 +1,6 @@
+from .options import OrmSqlachemyOptions,DefaultOptions,RequestValidatorOptions,SerializeOptions
+class Development:
+ ORM_SQLACHEMY=OrmSqlachemyOptions.ORMSQLACHEMY
+ AUTH_SERVICE=DefaultOptions.DEFAULT
+ REQUEST_VALIDATOR=RequestValidatorOptions.PYDANTIC_MODEL
+ RESPONSE_JSON=SerializeOptions.PYDANTIC_JSON

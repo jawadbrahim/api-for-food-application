@@ -4,7 +4,6 @@ from .reponse_serializer.factory import FactoryReponseSerializer
 from flask import jsonify
 from .exceptions import FoodFailedToCreate,FoodNotExist,GroupedFoodIsEmpty,TitleNotFound
 from project.redis.redis_cache import Rediscache
-from project.module.exception_form import AppError
 class FoodController:
     def __init__(self):
         self.data_access = FactoryDataAccess.build_object()
@@ -25,8 +24,8 @@ class FoodController:
         return self.response_serializer.serialize_create_food(food)
         
      except (FoodFailedToCreate, Exception) as e:
-        # Handle the error by returning a JSON response with the error message
-        return jsonify({"error": str(e)})
+        
+        return jsonify({"error": e.to_dict()})
 
     def get_foods(self, food_id):
         cache_key= f"food{food_id}"
