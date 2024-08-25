@@ -13,16 +13,16 @@ class Default(AbstractionAuthService):
         self.jwt=JwtHelpers(Config.JWT_SECRET,Config.JWT_SIGN_ALGORITHM)
         self.date=DateHelper()
 
-    def generate_token(self, account_id):
-     token_id = uuid.uuid4()  # Generate a new UUID for the token
-     exp = self.date.get_expiration_date(minutes=Config.TOKEN_DURATION_IN_MINUTES)
-     payload = {
-        'token_id': str(token_id),
-        'exp': exp
-    }
-     token_str = self.jwt.encode(payload)
-     self.data_access.insert_token(token_id, token_str)
-     return token_str
+    def generate_token(self):
+        token_id = uuid.uuid4()
+        exp = self.date.get_expiration_date(minutes=Config.TOKEN_DURATION_IN_MINUTES)
+        payload = {
+            'token_id': str(token_id),
+            'exp': exp
+        }
+        token_str = self.jwt.encode(payload)
+        self.data_access.insert_token(token_id, token_str)
+        return token_id, token_str
 
 
     def register(self, email, password):
@@ -35,27 +35,18 @@ class Default(AbstractionAuthService):
 
 
     def login(self, email, password):
-     account = self.data_access.email_exists(email)
-     if not account or not self.hashing.verify_password(password, account.password):
-        raise CredentialsMismatch(email=email)
-
-    # Generate token using the account's ID
-     token = self.generate_token(account.id)
-    
-    # Extract the UUID from the token payload to update the token_id
-     decoded_token = self.jwt.decode(token)
-     token_uuid = decoded_token['token_id']
-    
-
-     self.data_access.update_token_id(account.id, token_uuid)
-
-
-     return Login(
+        account = self.data_access.email_exists(email)
+        if not account or not self.hashing.verify_password(password, account.password):
+            raise CredentialsMismatch(email=email)
         
-        id=account.id,
-        email=account.email,
-        password=account.password
-    )
+        token_id, token_str = self.generate_token()  # Capture token_id and token_str
+        self.data_access.update_token_id(account.id, token_id)  # Use token_id instead of token_str
+        
+        return Login(
+            id=account.id,
+            email=account.email,
+            password=account.password
+        )
 
     def delete_account(self, auth_id):
         deleted_account = self.data_access.delete_account(auth_id)

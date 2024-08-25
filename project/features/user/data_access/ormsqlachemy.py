@@ -1,18 +1,36 @@
 from .abstraction import AbstractionDataAccess
 from project.module.ormsqlachemy import OrmSqlalchemy
 from project.model.user import User
-
+from project.model.token import Token
+import logging
 
 class  OrmsqlalchemyDataAccess(AbstractionDataAccess,OrmSqlalchemy):
 
 
-    def create_user(self,first_name,last_name):
-        user=User(
-            first_name=first_name,
-            last_name=last_name
-        )
-        self.add(user)
-        return user
+    def create_user(self, first_name, last_name):
+     user = User(first_name=first_name, last_name=last_name)
+     self.add_and_flush(user)
+     return user
+    def auth_allocated(self, token_id):
+     token = Token.query.filter_by(id=token_id).first()
+     if token:
+        if token.user_id:
+            return True
+     return False
+    def update_token_user_id(self, token_id, user_id):
+     token = Token.query.filter_by(id=token_id).first()
+     if token:
+       
+        token.user_id = user_id
+
+         
+          
+        return True
+    
+     return False
+
+
+        
     def get_user_by_id(self,user_id):
      user=User.query.filter(User.id==user_id).first()
      if  user:

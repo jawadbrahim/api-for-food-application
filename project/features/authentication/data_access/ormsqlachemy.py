@@ -35,13 +35,14 @@ class OrmSqlalchemy(AbstractionDataAccess,Orm):
         self.add(token)
         return token
     def update_token_id(self, auth_id, token_id):
-     auth_record = Auth.query.filter(Auth.id == auth_id).first()
-     if auth_record:
-        auth_record.token_id = token_id  # Here, token_id is the UUID, not the JWT string
-        self.commit()  # Ensure the update is saved
-     return auth_record
-
-        
+        auth_record = Auth.query.filter(Auth.id == auth_id).first()
+        if auth_record:
+            auth_record.token_id = token_id  # Update token_id in Auth table
+            self.commit()  
+        return auth_record
+    
+    
+         
     def delete_account(self,auth_id):
         deleted_account=Auth.query.filter(Auth.id== auth_id).first()
         if deleted_account:

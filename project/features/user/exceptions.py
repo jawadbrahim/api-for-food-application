@@ -7,3 +7,6 @@ class FailedToCreateUser(AppError):
 class UserNotExist(AppError):
     description="user does not exist"
     http_code=404
+class AccountAlreadyCreated(AppError):
+    description="account already created"
+    http_code=404
