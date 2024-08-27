@@ -1,4 +1,4 @@
-from ..data_classes import FoodDataclasses,FoodDeletedDataClasse,FoodUpdatedDataClasses
+from ..data_classes import FoodDataclasses,FoodDeletedDataClasse,FoodUpdatedDataClasses,FavoriteDataClass
 from pydantic import BaseModel
 
 
@@ -14,5 +14,6 @@ class FoodUpdateSerializer(BaseModel):
        
 class DeletedFoodSerializer(BaseModel):
     food: FoodDeletedDataClasse
-    
-       
+
+class FavoriteSerializer(BaseModel):
+    favorite:FavoriteDataClass

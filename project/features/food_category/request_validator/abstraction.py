@@ -5,3 +5,5 @@ class AbstractionRequestvalidator(metaclass=abc.ABCMeta):
         raise NotImplementedError()
     def validate_update_foods(self):
         raise NotImplementedError()
+    def validate_create_favorite(self):
+        raise NotImplementedError()

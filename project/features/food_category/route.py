@@ -1,8 +1,7 @@
 from flask import Blueprint
 from project.features.food_category.controller import FoodController
-from .request_validator import request_validator 
 from.blueprint import foods_bp
-from .request_validator.pydantic_response_models import FoodPydanticModel
+from .request_validator.pydantic_response_models import FoodPydanticModel,favoriteModel
 from ...decorators.validate import validate_schema
 from ...decorators.request_limit import rate_limiter_decorator
 @foods_bp.route("/foods", methods=["POST"])
@@ -42,4 +41,16 @@ def delete_food(food_id):
 def search_food(title):
     controller = FoodController()
     response = controller.search_food(title)
+    return response, 200
+@foods_bp.route("/favorite",methods=["POST"])
+@validate_schema(favoriteModel)
+def add_favorite(validated_data):
+    controller=FoodController()
+    response=controller.add_favorite_food(validated_data)
+    return response,200
+@foods_bp.route("/favorite/<uuid:user_id>", methods=["GET"])
+@rate_limiter_decorator()
+def get_favorites(user_id):
+    controller = FoodController()
+    response = controller.get_favorite_foods(user_id)
     return response, 200

@@ -26,10 +26,14 @@ class UserController:
     
     def get_user(self,user_id):
        try:
-         get_users= self.user_service.get_user_by_id(user_id)
-         return get_users
-          
-          
-
+          get_users= self.user_service.get_user_by_id(user_id)
+          return get_users
        except (UserNotExist,Exception) as e :
-          return jsonify({"error": e.to_dict()})
+          return jsonify({"error": str(e)})
+    def delete_user(self,user_id):
+       try:
+          delete_user=self.user_service.delete_user(user_id)
+          self.data_access.commit()
+          return self.response_serializer.serialize_delete_user(delete_user)
+       except(UserNotExist,Exception)as e:
+          return jsonify({"error"})

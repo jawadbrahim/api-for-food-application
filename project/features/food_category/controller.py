@@ -88,3 +88,17 @@ class FoodController:
             return searched_food
         except (TitleNotFound,Exception) as e:
             return jsonify({"error": e.to_dict()})
+    def add_favorite_food(self,validated_data):
+        try:
+            favorite = self.food_service.add_favorite_food(validated_data.user_id, validated_data.food_id)
+            self.data_access.commit()
+            return self.response_serializer.serialize_favorite_created(favorite)
+        except (FoodNotExist,Exception )as e:
+            return jsonify({"error": e.to_dict()})
+
+    def get_favorite_foods(self, user_id):
+        try:
+            favorite_foods = self.food_service.get_favorite_foods_by_user(user_id)
+            return jsonify(favorite_foods)
+        except (FoodNotExist,Exception) as e:
+            return jsonify({"error":e.to_dict()})

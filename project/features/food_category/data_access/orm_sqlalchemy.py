@@ -1,6 +1,6 @@
 from .abstraction import AbstractionDataAccess
 from project.model.food_category import Foods
-from database.postgres import db
+from project.model.favorites import Favorite
 from project.module.ormsqlachemy import OrmSqlalchemy
 
 
@@ -87,3 +87,21 @@ class OrmSqlalchemyFoodCategory(AbstractionDataAccess,OrmSqlalchemy):
             for food in search
         ]
         return search_results
+ def add_favorite_food(self, user_id, food_id):
+        favorite = Favorite(user_id=user_id, food_id=food_id)
+        self.add_and_flush(favorite)
+        return favorite
+    
+ def  get_favorite_foods_by_user (self, user_id):
+        favorites = Favorite.query.filter_by(user_id=user_id).all()
+        favorite_foods = [
+            {
+                "food_id": fav.food_id,
+                "title": fav.food.title,
+                "category": fav.food.category,
+                "description": fav.food.description,
+                "picture": fav.food.picture
+            }
+            for fav in favorites
+        ]
+        return favorite_foods

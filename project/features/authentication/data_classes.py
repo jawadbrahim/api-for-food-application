@@ -4,7 +4,6 @@ import uuid
 @dataclass
 class AuthCreated:
     id:uuid.UUID
-    
     email:str
     password:str
     created_at: datetime
@@ -13,6 +12,7 @@ class Login:
     id:uuid.UUID
     email:str
     password:str
+    token:str
 @dataclass
 class AuthDelete:
     id: uuid.UUID

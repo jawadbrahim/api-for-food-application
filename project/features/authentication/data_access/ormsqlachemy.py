@@ -18,13 +18,13 @@ class OrmSqlalchemy(AbstractionDataAccess,Orm):
     def email_password_exists(self,email,password):
         account=Auth.query.filter(Auth.email==email,Auth.password==password,Auth.is_deleted==False).first()
         return account
-    def get_account(self,email):
-        auth_email=Auth.query.filter(Auth.email==email).first()
-        if auth_email:
+    def get_account(self,auth_id):
+        auth=Auth.query.filter(Auth.id==auth_id).first()
+        if auth_id:
             account_data={
-                "auth_id":auth_email.id,
-                "email": auth_email.email,
-                "password":auth_email.password
+                "auth_id":auth.id,
+                "email": auth.email,
+                "password":auth.password
             }
         return account_data
     def insert_token(self,token_id,token_str):
@@ -37,7 +37,7 @@ class OrmSqlalchemy(AbstractionDataAccess,Orm):
     def update_token_id(self, auth_id, token_id):
         auth_record = Auth.query.filter(Auth.id == auth_id).first()
         if auth_record:
-            auth_record.token_id = token_id  # Update token_id in Auth table
+            auth_record.token_id = token_id 
             self.commit()  
         return auth_record
     
@@ -48,6 +48,7 @@ class OrmSqlalchemy(AbstractionDataAccess,Orm):
         if deleted_account:
             deleted_account.is_deleted=True
         return deleted_account
+    
         
    
       

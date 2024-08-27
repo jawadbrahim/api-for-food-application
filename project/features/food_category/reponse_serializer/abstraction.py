@@ -6,3 +6,5 @@ class AbstractionReponseSerializer(metaclass=abc.ABCMeta):
         raise NotImplementedError()
     def serialize_update_food(self):
         raise NotImplementedError()
+    def serialize_favorite_created(self):
+        raise NotImplementedError()

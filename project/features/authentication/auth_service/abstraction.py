@@ -5,5 +5,8 @@ class AbstractionAuthService(metaclass=abc.ABCMeta):
         raise NotImplementedError()
     def login(self):
         raise NotImplementedError()
+    def get_account(self):
+        raise NotImplementedError()
     def delete_account(self):
         raise NotImplementedError()
+    

@@ -6,7 +6,6 @@ class RegisterSerialize(AbstractionResponseSerializer):
     def serialize_register(self, account):
         account = AuthCreated(
             id=account.id,
-            
             email=account.email,
             password=account.password,
             created_at=account.created_at
@@ -17,7 +16,8 @@ class RegisterSerialize(AbstractionResponseSerializer):
         login_data=Login(
             id=account.id,
             email=account.email,
-            password=account.password
+            password=account.password,
+            token=account.token
 
         )
         response=LoginModel(account=login_data)

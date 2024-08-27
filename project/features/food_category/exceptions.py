@@ -13,3 +13,7 @@ class GroupedFoodIsEmpty(AppError):
     http_code=404
 class TitleNotFound(AppError):
    description="title not found"
+   http_code=404
+class UserNotExist(AppError):
+    description="user not exist"
+    http_code=404

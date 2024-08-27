@@ -39,15 +39,22 @@ class Default(AbstractionAuthService):
         if not account or not self.hashing.verify_password(password, account.password):
             raise CredentialsMismatch(email=email)
         
-        token_id, token_str = self.generate_token()  # Capture token_id and token_str
-        self.data_access.update_token_id(account.id, token_id)  # Use token_id instead of token_str
+        token_id, token_str = self.generate_token()  
+        self.data_access.update_token_id(account.id, token_id) 
         
         return Login(
             id=account.id,
             email=account.email,
-            password=account.password
+            password=account.password,
+            token=token_str
+            
         )
-
+    def get_account(self,auth_id):
+        get_account=self.data_access.get_account(auth_id)
+        if not get_account:
+            raise AccountNotFound(auth_id=auth_id)
+        return get_account
+        
     def delete_account(self, auth_id):
         deleted_account = self.data_access.delete_account(auth_id)
         if not deleted_account:

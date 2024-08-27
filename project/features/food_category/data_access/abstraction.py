@@ -14,3 +14,7 @@ class AbstractionDataAccess(metaclass=abc.ABCMeta):
         raise NotImplementedError()
     def search_food(self):
         raise NotImplementedError()
+    def add_favorite_food(self):
+        raise NotImplementedError()
+    def get_favorite_foods_by_user(self):
+        raise NotImplementedError()

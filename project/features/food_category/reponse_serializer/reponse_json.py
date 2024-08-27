@@ -1,6 +1,6 @@
 from .abstraction import AbstractionReponseSerializer
-from .reponse_serializer_models import ModelReponse_serialize, FoodUpdateSerializer,DeletedFoodSerializer
-from project.features.food_category.data_classes import FoodDataclasses, FoodUpdatedDataClasses,FoodDeletedDataClasse
+from .reponse_serializer_models import ModelReponse_serialize, FoodUpdateSerializer,DeletedFoodSerializer,FavoriteSerializer
+from project.features.food_category.data_classes import FoodDataclasses, FoodUpdatedDataClasses,FoodDeletedDataClasse,FavoriteDataClass
 
 class Reponse_json(AbstractionReponseSerializer):
     def serialize_create_food(self, food):
@@ -33,3 +33,15 @@ class Reponse_json(AbstractionReponseSerializer):
         )
         response = DeletedFoodSerializer(food=food_data)
         return response.json()
+    def serialize_favorite_created(self, favorite):
+     favorite_data = FavoriteDataClass(
+        user_id=favorite.user_id,
+        food_id=favorite.food_id,
+        created_at=favorite.created_at
+    )
+     response = FavoriteSerializer(favorite=favorite_data)
+     return response.json()
+
+              
+         
+         

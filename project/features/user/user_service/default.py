@@ -7,7 +7,7 @@ class DefaultUserService(AbstractionUserService):
         self.data_access=data_access
 
     def create_user(self, first_name, last_name, token_id):
-     if self.data_access.auth_allocated(token_id):
+     if self.data_access.is_token_in_use(token_id):
         raise AccountAlreadyCreated
     
      user_created = self.data_access.create_user(first_name, last_name)
@@ -17,7 +17,6 @@ class DefaultUserService(AbstractionUserService):
      success = self.data_access.update_token_user_id(token_id, user_created.id)
      if not success:
         raise FailedToCreateUser
-    
      return user_created
 
 
@@ -26,6 +25,12 @@ class DefaultUserService(AbstractionUserService):
         if not get_user:
             raise UserNotExist
         return get_user
+    def delete_user(self,user_id):
+       delete_user=self.data_access.delete_user(user_id)
+       if not delete_user:
+          raise UserNotExist(user_id=user_id)
+       return delete_user
+       
         
 
 

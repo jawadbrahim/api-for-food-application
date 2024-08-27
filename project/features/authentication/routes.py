@@ -15,6 +15,11 @@ def login(validated_data):
     controller=AuthController()
     response=controller.login(validated_data)
     return response,201
+@auth_bp.route("/auth/<uuid:auth_id>",methods=["GET"])
+def get_account(auth_id):
+    controller=AuthController()
+    response=controller.get_account(auth_id)
+    return response,201
 @auth_bp.route("/<string:email>",methods=["DELETE"])
 def delete_account(email):
     controller=AuthController()

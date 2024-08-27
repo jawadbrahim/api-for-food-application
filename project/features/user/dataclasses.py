@@ -7,3 +7,7 @@ class UserCreated:
     id:uuid.UUID
     first_name:str
     last_name:str
+@dataclass
+class UserDeleted:
+
+  id:uuid.UUID

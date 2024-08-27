@@ -1,5 +1,5 @@
-from .pydantic_response_models import CreatedSerialzier
-from ..dataclasses import UserCreated
+from .pydantic_response_models import CreatedSerialzier,DeleteUserSerializer
+from ..dataclasses import UserCreated,UserDeleted
 from .abstraction import AbstractionReponseSerializer
 
 class ResponseJson(AbstractionReponseSerializer):
@@ -12,4 +12,11 @@ class ResponseJson(AbstractionReponseSerializer):
 
         response=CreatedSerialzier(user=user_data)
         return response.json()
+    def serialize_delete_user(self,delete_user):
+        delete_data=UserDeleted(
+            id=delete_data.id
+        )
+        response=DeleteUserSerializer(deleted_suser=delete_data)
+        return response.json()
+        
         
