@@ -3,13 +3,13 @@ from .data_access.factory import FactoryDataAccess
 from .reponse_serializer.factory import FactoryReponseSerializer
 from flask import jsonify
 from .exceptions import FoodFailedToCreate,FoodNotExist,GroupedFoodIsEmpty,TitleNotFound
-from project.redis.redis_cache import Rediscache
+# from project.redis.redis_cache import Rediscache
 class FoodController:
     def __init__(self):
         self.data_access = FactoryDataAccess.build_object()
         self.food_service = FactoryFoodService.build_object(self.data_access)
         self.response_serializer = FactoryReponseSerializer.build_object()
-        self.redis_cache=Rediscache()
+        # self.redis_cache=Rediscache()
 
     def create_foods(self, validated_data):
      try:
@@ -28,26 +28,26 @@ class FoodController:
         return jsonify({"error": e.to_dict()})
 
     def get_foods(self, food_id):
-        cache_key= f"food{food_id}"
-        cached_foods_by_id=self.redis_cache.get_cache(cache_key)
-        if cached_foods_by_id:
-            return cached_foods_by_id
+        # cache_key= f"food{food_id}"
+        # cached_foods_by_id=self.redis_cache.get_cache(cache_key)
+        # if cached_foods_by_id:
+            # return cached_foods_by_id
 
         try:
             food = self.food_service.get_foods_by_id(food_id)
-            self.redis_cache.set_cache(cache_key,food)
+            # self.redis_cache.set_cache(cache_key,food)
             return food
         except (FoodNotExist,Exception) as e:
             return jsonify({"error":e.to_dict()})
 
     def get_grouped_foods(self):
-        cache_key= "grouped_food"
-        cached_grouped_food=self.redis_cache.get_cache(cache_key)
-        if cached_grouped_food:
-            return cached_grouped_food
+        # cache_key= "grouped_food"
+        # cached_grouped_food=self.redis_cache.get_cache(cache_key)
+        # if cached_grouped_food:
+            # return cached_grouped_food
         try:
             grouped_foods = self.food_service.get_food_by_group()
-            self.redis_cache.set_cache(cache_key,grouped_foods)
+            # self.redis_cache.set_cache(cache_key,grouped_foods)
             return grouped_foods
         except (GroupedFoodIsEmpty, Exception) as e:
             return jsonify({"error": e.to_dict()})
@@ -78,13 +78,13 @@ class FoodController:
             return jsonify({"error": e.to_dict()})
 
     def search_food(self, title):
-        cache_key=f"food:search:{title}"
-        cache_data=self.redis_cache.get_cache(cache_key)
-        if cache_data:
-            return cache_data
+        # cache_key=f"food:search:{title}"
+        # cache_data=self.redis_cache.get_cache(cache_key)
+        # if cache_data:
+            # return cache_data
         try:
             searched_food = self.food_service.search_food(title)
-            self.redis_cache.set_cache(cache_key,searched_food)
+            # self.redis_cache.set_cache(cache_key,searched_food)
             return searched_food
         except (TitleNotFound,Exception) as e:
             return jsonify({"error": e.to_dict()})

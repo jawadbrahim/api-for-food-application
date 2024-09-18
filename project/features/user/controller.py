@@ -1,7 +1,6 @@
 from .user_service.factory import FactoryUserService
 from .data_access.factory import FactoryDataAccess
 from .reponse_serializer.factory import FactoryResponseJson
-from project.redis.redis_cache import Rediscache
 from .exceptions import UserNotExist,FailedToCreateUser
 from flask import jsonify
 
