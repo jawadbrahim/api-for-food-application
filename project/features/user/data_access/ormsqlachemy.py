@@ -23,18 +23,9 @@ class  OrmsqlalchemyDataAccess(AbstractionDataAccess,OrmSqlalchemy):
      return False
     def get_user_by_id(self,user_id):
      user=User.query.filter(User.id==user_id,User.is_deleted==False).first()
-     if  user:
-        user_data={
-          
-           "id":user.id,
-           "first_name":user.first_name,
-           "last_name" :user.last_name
-        }
-        return user_data
+     return user
     def delete_user(self,user_id):
       food_deleted=User.query.filter(User.id==user_id).first()
       if food_deleted:
         food_deleted.is_deleted=True
       return food_deleted
-
-      

@@ -4,4 +4,4 @@ class CreatedSerialzier(BaseModel):
     user:UserCreated
 
 class DeleteUserSerializer(BaseModel):
-    deleted_suser:UserDeleted
+    delete_user:UserDeleted

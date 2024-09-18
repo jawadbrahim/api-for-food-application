@@ -23,7 +23,7 @@ class DefaultUserService(AbstractionUserService):
     def get_user_by_id(self,user_id):
         get_user=self.data_access.get_user_by_id(user_id)
         if not get_user:
-            raise UserNotExist
+            raise UserNotExist(user_id=user_id)
         return get_user
     def delete_user(self,user_id):
        delete_user=self.data_access.delete_user(user_id)

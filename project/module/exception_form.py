@@ -13,7 +13,7 @@ class AppError(Exception):
         if 'http_code' in kwargs:
             self.http_code = kwargs.pop('http_code', self.http_code)
 
-    def __str__(self):
+    def __str__(self)-> str:
         return f"Description: {self.description}, Details: {self.details}, Code: {self.http_code}"
 
     def set_details(self, kwargs):

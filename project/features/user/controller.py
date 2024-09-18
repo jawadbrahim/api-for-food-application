@@ -20,20 +20,20 @@ class UserController:
             token_id=token_id
         )
         self.data_access.commit()  
-        return self.response_serializer.serialize_create_user(user)
+        return self.response_serializer.serialize_user(user)
      except (FailedToCreateUser, Exception) as e:
         return jsonify({"error": e.to_dict()})
     
     def get_user(self,user_id):
        try:
-          get_users= self.user_service.get_user_by_id(user_id)
-          return get_users
+          user= self.user_service.get_user_by_id(user_id)
+          return self.response_serializer.serialize_user(user)
        except (UserNotExist,Exception) as e :
-          return jsonify({"error": str(e)})
+          return jsonify({"error": e.to_dict()})
     def delete_user(self,user_id):
        try:
           delete_user=self.user_service.delete_user(user_id)
           self.data_access.commit()
           return self.response_serializer.serialize_delete_user(delete_user)
        except(UserNotExist,Exception)as e:
-          return jsonify({"error"})
+          return jsonify({"error":e.to_dict()})

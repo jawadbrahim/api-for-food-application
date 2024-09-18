@@ -8,3 +8,11 @@ class MockDataAccess(AbstractionDataAccess):
         pass
      def get_user_by_id(self,user_id):
         pass
+     def update_token_user_id(self,token_id,user_id):
+        pass
+     def delete_user(self,user_id):
+         pass
+        
+     def is_token_in_use(self,token_id):
+         pass
+        

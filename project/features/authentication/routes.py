@@ -1,16 +1,15 @@
 from .blueprint import auth_bp
 from .controller import AuthController
-from .request_validator.request_validator_models import RegisterValidate,LoginValidate
-from project.decorators.validate import validate_schema
+from.request_validator import request_validator
 
 @auth_bp.route("/register",methods=["POST"])
-@validate_schema(RegisterValidate)
+@request_validator.validate_register()
 def register(validated_data):
     controller=AuthController()
     response=controller.register(validated_data)
     return response,201
 @auth_bp.route("/login",methods=["POST"])
-@validate_schema(LoginValidate)
+@request_validator.validate_login()
 def login(validated_data):
     controller=AuthController()
     response=controller.login(validated_data)

@@ -1,0 +1,3 @@
+from .factory import FactoryRequestValidator
+
+request_validator=FactoryRequestValidator.build_object()
