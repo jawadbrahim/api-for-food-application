@@ -3,9 +3,9 @@ from dataclasses import dataclass
 
 @dataclass
 class Development:
-    DATABASE_URL = os.getenv('DATABASE_URL')
-    if DATABASE_URL and DATABASE_URL.startswith("postgres://"):
-        DATABASE_URL = DATABASE_URL.replace("postgres://", "postgresql://")
+    SQLALCHEMY_DATABASE_URI = os.getenv('DATABASE_URI')
+    REDIS_HOST = os.getenv("REDIS_HOST")
+    REDIS_PORT =os.getenv("REDIS_PORT")
+    REDIS_PASSWORD = os.getenv("REDIS_PASSWORD")
+    JWT_SECRET=os.getenv("JWT_SECRET")
     
-    SQLALCHEMY_DATABASE_URI = DATABASE_URL
-    JWT_SECRET = os.getenv("JWT_SECRET")
