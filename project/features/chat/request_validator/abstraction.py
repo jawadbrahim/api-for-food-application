@@ -1,5 +1,5 @@
-import abc
+# import abc
 
-class AbstractionRequestvalidator(metaclass=abc.ABCMeta):
-    def validate_create_chat(self):
-        raise NotImplementedError()
+# class AbstractionRequestvalidator(metaclass=abc.ABCMeta):
+#     def validate_create_chat(self):
+#         raise NotImplementedError()
