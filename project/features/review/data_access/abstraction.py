@@ -2,6 +2,8 @@ import abc
 class AbstractionDataAccess(metaclass=abc.ABCMeta):
     def create_review(self):
         raise NotImplementedError()
+    def get_review_by_id(self):
+        raise NotImplementedError()
     def get_review_by_food(self):
         raise NotImplementedError()
     def get_reviews(self):

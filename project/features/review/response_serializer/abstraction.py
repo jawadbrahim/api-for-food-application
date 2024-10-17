@@ -7,5 +7,7 @@ class AbstractionResponseSerializer(metaclass=abc.ABCMeta):
         raise NotImplementedError()
     def serialze_get_reviews(self):
         raise NotImplementedError()
+    def serialize_Like_review(self):
+        raise NotImplementedError()
     def serialize_delete_reviews(self):
         raise NotImplementedError()

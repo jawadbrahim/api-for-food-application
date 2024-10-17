@@ -9,11 +9,19 @@ class ReviewDataClasses:
     rating:float
     comment:str
 @dataclass
+class Like:
+    review_id:uuid.UUID
+@dataclass
 class Get_review_by_food:
-    food_id:int
+     id: uuid.UUID
+     user_id: uuid.UUID
+     food_id: int
+     rating: float
+     comment: str
+    
 @dataclass    
 class  Get_Reviews:
-    user_id:uuid.UUID
+    review_id:uuid.UUID
 @dataclass
 class Delete_Review:
     review_id:uuid.UUID

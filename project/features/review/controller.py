@@ -18,17 +18,25 @@ class ReviewController:
          return self.response_serializer.serialize_create_review(review)
         except(FoodNotFound,Exception)as e:
            return jsonify({"error":e.to_dict()})
+    def  like_review(self,review_id):
+      try:
+        likes_review=self.review_service.like_review(review_id)
+        self.data_access.commit()
+        return self.response_serializer.serialize_Like_review(likes_review)
+      except(ReviewNotFound,Exception)as e:
+         return jsonify({"error":e.to_dict()})
+    def dislike_review(self,review_id):
+       try:
+          dislikes_review=self.review_service.dislike_review(review_id)
+          self.data_access.commit()
+          return self.response_serializer.serialize_Dislike_review(dislikes_review)
+       except(ReviewNotFound,Exception)as e:
+          return jsonify({"error":e.to_dict()})
     def get_review_by_food(self,food_id):
        try:
           get_review=self.review_service.get_review_by_food(food_id)
           return self.response_serializer.serialzie_get_review_by_food(get_review)
        except(FoodNotFound,Exception)as e:
-          return jsonify({"error":e.to_dict()})
-    def get_reviews(self,review_id):
-       try:
-        get_reviews=self.review_service.get_reviews(review_id)
-        return self.response_serializer.serialze_get_reviews(get_reviews)
-       except(ReviewNotFound,Exception)as e:
           return jsonify({"error":e.to_dict()})
     def remove_review(self,review_id):
        try:

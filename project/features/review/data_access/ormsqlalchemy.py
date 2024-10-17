@@ -13,12 +13,25 @@ class OrmSqlAlchemy(AbstractionDataAccess,orm):
         )
         self.add(review)
         return review
-    def get_review_by_food(self,food_id):
-        get_review=Review.query.filter(Review.food_id==food_id,Review.is_deleted==False).first()
-        return get_review
-    def get_reviews(self,review_id):
-        get_reviews=Review.query.filter(Review.id==review_id,Review.is_deleted==False).all()
-        return get_reviews
+    def get_review_by_id(self,review_id):
+        review=Review.query.filter(Review.id==review_id,Review.is_deleted==False).first()
+        return review
+    def get_review_by_food(self, food_id):
+        reviews = Review.query.filter(Review.food_id == food_id, Review.is_deleted == False).all()
+        if reviews:
+            review_data = [
+                {
+                    "id": review.id,
+                    "user_id": review.user_id,
+                    "food_id": review.food_id,
+                    "rating": review.rating,
+                    "comment": review.comment,
+                    "created_at": review.created_at
+                }
+                for review in reviews
+            ]
+            return review_data
+        return []
     def delete_review(self,review_id):
         delete_review=Review.query.filter(Review.id==review_id).first()
         if delete_review:
