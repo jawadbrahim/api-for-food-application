@@ -1,13 +1,12 @@
 from .abstraction import AbstractionService
 from ..exception import UserNotFound
 from ..helper.encrypted import Encrypt
-from project.config.development import Development
 import base64
 class Default(AbstractionService):
     def __init__(self,data_access):
         self.data_access=data_access
         self.encrypt=Encrypt()
-        # self.redis_client=Development.redis_client
+        
 
 
     def create_chat(self, message, sender_id, receiver_id):
@@ -16,6 +15,9 @@ class Default(AbstractionService):
      chat = self.data_access.create_chat(encrypted_message_base64, sender_id, receiver_id)
      if not chat:
         raise UserNotFound(sender_id=sender_id)
+     channel=f"chat_{receiver_id}"
+    
+     self.redis_client.publish(channel, chat.id)
      return chat
     def get_chat(self, chat_id):
      chat = self.data_access.get_chat(chat_id)

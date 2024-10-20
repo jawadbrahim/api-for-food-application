@@ -8,5 +8,4 @@ class Development:
     REDIS_PASSWORD = os.getenv("REDIS_PASSWORD")
     JWT_SECRET=os.getenv("JWT_SECRET")
     KEY=os.getenv("KEY")
-print(f"Development.KEY: {Development.KEY}") 
     

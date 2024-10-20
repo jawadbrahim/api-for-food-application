@@ -11,4 +11,3 @@ class ChatRead(db.Model):
     chat_id=db.Column("chat_id",UUID(as_uuid=True),db.ForeignKey("chat.id"),nullable=True)
     user_id=db.Column(UUID(as_uuid=True),nullable=False)
     read_it= db.Column(db.DateTime,default=datetime.datetime.now(datetime.timezone.utc))
-
