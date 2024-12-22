@@ -1,5 +1,5 @@
 from database.postgres import db
-
+from sqlalchemy import func
 class OrmSqlalchemy():
 
     def add(self,obj):
@@ -14,3 +14,7 @@ class OrmSqlalchemy():
         db.session.delete(obj)
     def scalar(self,query):
      return db.session.query(query).scalar()
+    def count(self,obj):
+        return func.count(obj)
+    
+    

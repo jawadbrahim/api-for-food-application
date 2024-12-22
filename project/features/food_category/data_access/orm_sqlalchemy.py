@@ -3,7 +3,7 @@ from project.model.food_category import Foods
 from project.model.favorites import Favorite
 from project.module.ormsqlachemy import OrmSqlalchemy
 
-
+import json
 
 class OrmSqlalchemyFoodCategory(AbstractionDataAccess,OrmSqlalchemy):
 
@@ -28,32 +28,34 @@ class OrmSqlalchemyFoodCategory(AbstractionDataAccess,OrmSqlalchemy):
             "picture": food.picture,
             "ingredients": food.ingredients
         }
-        return food_data
-    
+        return json.dumps(food_data,ensure_ascii=False)
+    return None
 
  
- def get_food_by_group(self):
-     foods=Foods.query.all()
-     
-     grouped_food={}
-     
-     for food in foods:
-        category=food.category
+ def get_food_by_group(self, page=1, per_page=10):
+    foods = Foods.query.paginate(page=page, per_page=per_page, error_out=False)
+    
+    grouped_food = {}
+    for food in foods.items:
+        category = food.category
         if category not in grouped_food:
-              grouped_food[category]=[]
-        food_data={
-         
-            "title":food.title,
-            "description":food.description,
-            "picture":food.picture,
-            "ingredients":food.ingredients
-
-
-     }
-    
-    
+            grouped_food[category] = []
+        food_data = {
+            "title": food.title,
+            "description": food.description,
+            "picture": food.picture,
+            "ingredients": food.ingredients
+        }
         grouped_food[category].append(food_data)
-     return grouped_food
+    
+    result={
+        "food": grouped_food,
+        "total": foods.total,
+        "page": foods.page,
+        "pages": foods.pages
+    }
+    return json.dumps(result,ensure_ascii=False)
+
  def update_food(self, food_id, category, title, description, picture, ingredients):
         food = Foods.query.filter_by(id=food_id).first()
         if food:
@@ -66,7 +68,7 @@ class OrmSqlalchemyFoodCategory(AbstractionDataAccess,OrmSqlalchemy):
         else:
             return None
  def delete_food(self, food_id):
-        food = Foods.query.filter(Foods.id == food_id).first()
+        food = Foods.q.filter(Foods.id == food_id).first()
         if food:
             self.delete(food)
         return food

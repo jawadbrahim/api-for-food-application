@@ -18,8 +18,8 @@ class DefaultFoodService(AbstractionFoodService):
             raise FoodNotExist(food_id=food_id)
         return food
     
-    def get_food_by_group(self):
-        grouped_food=self.data_access.get_food_by_group()
+    def get_food_by_group(self,page=1,per_page=10):
+        grouped_food=self.data_access.get_food_by_group(page,per_page)
         if not grouped_food:
             raise GroupedFoodIsEmpty
         return grouped_food

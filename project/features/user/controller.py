@@ -3,13 +3,14 @@ from .data_access.factory import FactoryDataAccess
 from .reponse_serializer.factory import FactoryResponseJson
 from .exceptions import UserNotExist,FailedToCreateUser
 from flask import jsonify
+from ...redis.redis_cache import Rediscache
 
 class UserController:
     def __init__(self):
       self.data_access=FactoryDataAccess.build_object()
       self.response_serializer=FactoryResponseJson.build_object()
       self.user_service=FactoryUserService.build_object(self.data_access)
-      # self.redis_cache=Rediscache()
+      self.redis_cache=Rediscache()
 
     def create_user(self, validated_data, token_id):
      try:

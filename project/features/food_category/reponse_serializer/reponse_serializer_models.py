@@ -5,6 +5,8 @@ from pydantic import BaseModel
 class ModelReponse_serialize(BaseModel):
 
     food:FoodDataclasses
+    class config:
+        orm_mode=True
    
      
 class FoodUpdateSerializer(BaseModel):
