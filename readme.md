@@ -1,4 +1,5 @@
-Food Application API Documentation
+#Food Application API Documentation
+
 Overview
 This is a RESTful API designed for managing food-related operations, including user authentication and CRUD functionalities. The application leverages Python, Flask, Flask-RESTful, PostgreSQL, Redis, and other modern technologies to ensure scalability, performance, and security.
 
