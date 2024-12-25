@@ -34,6 +34,4 @@ This is a RESTful API designed for managing food-related operations, including u
 - **Rate-Limiting Caching**: Redis is also used to track the number of requests made by a user, ensuring that the rate limit is respected.
 
 ## Conclusion
-The **Food Application API** is a powerful and scalable solution for managing food-related operations. By leveraging modern technologies such as Flask, PostgreSQL, and Redis, the API ensures high performance, security, and scalability. With features such as JWT-based authentication, CRUD operations for food items, rate limiting, and caching, the API provides an efficient and secure platform for food management. Whether you're building a food delivery system or a restaurant management platform, this API can serve as the backbone for your application.
-
-For more information, please refer to the individual endpoints and features described above. We hope this documentation helps you get started with using the Food Application API in your projects!
+The **Food Application API** is a powerful and scalable solution for managing food-related operations. By leveraging modern technologies such as Flask, PostgreSQL, and Redis, the API ensures high performance, security, and scalability. With features such as JWT-based authentication, CRUD operations for food items, rate limiting, and caching, the API provides an efficient and secure platform for food management
