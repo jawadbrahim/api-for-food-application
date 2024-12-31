@@ -7,3 +7,4 @@ time.py
 fill_database.py
 pytest.py
 test.py
+helpers/static/swagger.yaml
