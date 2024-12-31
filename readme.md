@@ -1,90 +1,37 @@
-Food Application
-This is a RESTful API for managing food-related operations, including authentication, authorization, and CRUD functionalities. The application is built using Python, Flask, Flask-RESTful, PostgreSQL, Redis, and other modern tools for building scalable and secure APIs.
+# Food Application API Documentation
 
-Features
-Authentication and Authorization
-Secure User Authentication: Users authenticate using JWT tokens to access protected endpoints.
-Role-based Authorization: Users with different roles (e.g., admin, regular user) can perform different actions on the application (e.g., admins can create and delete food items, regular users can only view food items).
-CRUD Operations
-Create: Add new food items to the system with details like name, description, price, etc.
-Read: Retrieve food item details.
-Update: Modify the details of an existing food item.
-Delete: Remove a food item from the system.
-Rate Limiting
-Prevent abuse by limiting the number of requests a user can make in a given period (e.g., 100 requests per hour).
-Schema Validation
-Enforced Data Integrity: Ensure that all incoming data for food items and user operations follows a defined structure using Pydantic models.
-Modular Architecture
-Blueprints: The application is structured into blueprints to separate concerns, making it easy to maintain and scale.
-Service Factories: Services are organized into factories to facilitate testing and future expansions.
-Password Hashing
-bcrypt: User passwords are hashed and salted using bcrypt before storage to prevent unauthorized access.
-Food Reviews
-User Reviews: Users can leave reviews for food items, including likes/dislikes, ratings, and comments.
-Caching
-Redis Caching: Database query results are cached in Redis to improve performance and reduce load on the PostgreSQL database.
-Rate-Limiting Caching: Redis is used for rate-limiting to track the number of requests made by a user.
-Search Functionality
-Search Food Items: Users can search for food items by name, category, or ingredients.
-Order Management (New Feature)
-Users can create and manage orders. This includes adding items to the cart, placing orders, and checking the status of previous orders.
-Notification System (New Feature)
-Email Notifications: Users receive email notifications about their orders, new food items, or promotional discounts.
-Technologies Used
-Backend: Python, Flask, Flask-RESTful
-Database: PostgreSQL
-ORM: SQLAlchemy
-Caching: Redis (for caching and rate-limiting)
-Authentication: JWT-based token authentication
-Password Hashing: bcrypt
-Validation: Pydantic
-Search: Elasticsearch (for advanced search functionality)
-Deployment: Environment variables for configurations
-Notifications: Email via SMTP (for notifications)
-API Endpoints
-Authentication
-POST /auth/register
-Register a new user.
+## Overview
+This is a RESTful API designed for managing food-related operations, including user authentication and CRUD functionalities. The application leverages Python, Flask, Flask-RESTful, PostgreSQL, Redis, and other modern technologies to ensure scalability, performance, and security.
 
-POST /auth/login
-Log in to the application and receive a JWT token.
+## Features
+### 1. Authentication
+ - **JWT-based Authentication**: Users authenticate via JWT tokens, ensuring secure access to protected endpoints. Tokens are issued upon successful login and are required for accessing restricted operations.
+ - **Password Hashing**: Passwords are securely hashed and salted using bcrypt before storage, ensuring protection against unauthorized access.
 
-Food Items
-GET /food
-Retrieve a list of all food items.
+### 2. CRUD Operations for Food Items
+ - **Create**: Add new food items with detailed information, including name, description, price, and other attributes.
+ - **Read**: Retrieve details of a specific food item by ID.
+ - **Update**: Modify the details of an existing food item (e.g., update the price, name, or description).
+ - **Delete**: Remove a food item from the system.
+ - **Search**: Users can search for food items by title or keyword, with full-text search enabled.
 
-GET /food/{id}
-Retrieve details for a specific food item by its ID.
+### 3. Rate Limiting
+ + **Request Limiting**: Prevent abuse by limiting the number of requests a user can make within a specified period (e.g., 100 requests per hour).
+ + **Redis Rate-Limiting**: Redis is used to track and manage the number of requests made by a user.
 
-POST /food
-Create a new food item (requires admin role).
+### 4. Schema Validation
+ - **Enforced Data Integrity**: The system ensures that incoming data adheres to a predefined structure using Pydantic models, guaranteeing consistency and validation of inputs.
 
-PUT /food/{id}
-Update an existing food item (requires admin role).
+### 5. Modular Architecture
+ - **Blueprints**: The application is divided into blueprints to separate concerns, making the codebase easier to manage and extend.
+ - **Service Factories**: Services are organized into factory functions, improving testability and facilitating future expansions of the API.
 
-DELETE /food/{id}
-Delete a food item (requires admin role).
+### 6. Food Reviews
+ - **User Reviews**: Users can submit reviews for food items. Reviews include ratings (1-5 stars), comments, and like/dislike status.
 
-Reviews
-POST /reviews
-Create a new review for a food item.
+### 7. Caching
+- **Redis Caching**: Frequently accessed food items are cached in Redis to reduce the load on the PostgreSQL database and improve response times.
+- **Rate-Limiting Caching**: Redis is also used to track the number of requests made by a user, ensuring that the rate limit is respected.
 
-GET /reviews/{food_id}
-Retrieve all reviews for a specific food item.
-
-Orders (New Endpoint)
-POST /orders
-Create a new order with selected food items.
-
-GET /orders/{id}
-Retrieve order details by order ID.
-
-User Stories
-As a User:
-I can create an account and log in to access the app.
-I can view a list of all available food items.
-I can leave reviews for food items.
-I can order food items and track my orders.
-As an Admin:
-I can create, update, or delete food items.
-I can view all orders placed by users.
+## Conclusion
+The **Food Application API** is a powerful and scalable solution for managing food-related operations. By leveraging modern technologies such as Flask, PostgreSQL, and Redis, the API ensures high performance, security, and scalability. With features such as JWT-based authentication, CRUD operations for food items, rate limiting, and caching, the API provides an efficient and secure platform for food management

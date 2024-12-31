@@ -7,6 +7,7 @@ class AuthCreated:
     email:str
     password:str
     created_at: datetime
+    token:str
 @dataclass
 class Login:
     id:uuid.UUID

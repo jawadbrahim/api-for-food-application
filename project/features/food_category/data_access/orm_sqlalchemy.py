@@ -68,7 +68,7 @@ class OrmSqlalchemyFoodCategory(AbstractionDataAccess,OrmSqlalchemy):
         else:
             return None
  def delete_food(self, food_id):
-        food = Foods.q.filter(Foods.id == food_id).first()
+        food = Foods.query.filter(Foods.id == food_id).first()
         if food:
             self.delete(food)
         return food

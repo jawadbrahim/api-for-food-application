@@ -5,7 +5,7 @@ from project.helpers.jwt import JwtHelpers
 from project.helpers.date import DateHelper
 from ..config.jwthelpers import Config
 import uuid
-from project.features.authentication.data_classes import Login
+from project.features.authentication.data_classes import Login,AuthCreated
 class Default(AbstractionAuthService):
     def __init__(self, data_access):
         self.data_access = data_access
@@ -31,7 +31,15 @@ class Default(AbstractionAuthService):
         raise AccountAlreadyExist(email=email)
      hashed_password = self.hashing.hash_password(password)
      account = self.data_access.create_account(email, hashed_password)
-     return account
+     token_id,token_str=self.generate_token()
+     self.data_access.update_token_id(account.id,token_id)
+     return AuthCreated(
+         email=account.id,
+         password=account.password,
+         created_at=account.created_at,
+         token=token_str
+     )
+
 
 
     def login(self, email, password):

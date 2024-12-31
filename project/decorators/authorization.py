@@ -1,7 +1,6 @@
 from functools import wraps
 from flask import request, jsonify
-from project.model.token import Token  
-
+from project.model.token import Token 
 def token_required(f):
     @wraps(f)
     def decorated_function(*args, **kwargs):
@@ -17,6 +16,5 @@ def token_required(f):
             return jsonify({"message": "Invalid Token!"}), 401
         kwargs['token_id'] = token_record.id
         return f(*args, **kwargs)
-    
     return decorated_function
 

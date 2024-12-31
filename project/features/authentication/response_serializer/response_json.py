@@ -8,7 +8,8 @@ class RegisterSerialize(AbstractionResponseSerializer):
             id=account.id,
             email=account.email,
             password=account.password,
-            created_at=account.created_at
+            created_at=account.created_at,
+            token=account.token
         )
         response = RegisterModel(account=account)
         return response.json()
