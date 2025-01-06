@@ -2,21 +2,23 @@ from .abstraction import AbstractionDataAccess
 from project.model.food_category import Foods
 from project.model.favorites import Favorite
 from project.module.ormsqlachemy import OrmSqlalchemy
-
+from flask import url_for
 import json
-
+from project.features.food_category.storage.google_storage import upload_to_gcs
 class OrmSqlalchemyFoodCategory(AbstractionDataAccess,OrmSqlalchemy):
 
  def create_food(self, category, title, description, picture, ingredients):
-        food = Foods(
-            category=category,
-            title=title,
-            description=description,
-            picture=picture,
-            ingredients=ingredients,
-        )
-        self.add(food)
-        return food
+    relative_picture_path = f"images/{picture}"
+    food = Foods(
+        category=category,
+        title=title,
+        description=description,
+        picture=relative_picture_path,
+        ingredients=ingredients,
+    )
+    self.add(food)
+    return food
+
  def get_food_by_id(self, food_id):
     food = Foods.query.filter(Foods.id == food_id).first()
     if food:
@@ -25,7 +27,7 @@ class OrmSqlalchemyFoodCategory(AbstractionDataAccess,OrmSqlalchemy):
             "category": food.category,
             "title": food.title,
             "description": food.description,
-            "picture": food.picture,
+            "picture": url_for('static',filename=food.picture,_external=True).replace("127.0.0.1","192.168.1.1"),
             "ingredients": food.ingredients
         }
         return json.dumps(food_data,ensure_ascii=False)
@@ -43,7 +45,7 @@ class OrmSqlalchemyFoodCategory(AbstractionDataAccess,OrmSqlalchemy):
         food_data = {
             "title": food.title,
             "description": food.description,
-            "picture": food.picture,
+            "picture": url_for('static', filename=food.picture, _external=True),
             "ingredients": food.ingredients
         }
         grouped_food[category].append(food_data)
