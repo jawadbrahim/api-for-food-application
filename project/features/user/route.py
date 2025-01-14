@@ -1,6 +1,6 @@
 from .controller import UserController
 from .request_validator import request_validator
-from project.decorators.authorization import token_required
+from project.decorators.token_required import token_required
 from project.decorators.request_limit import rate_limiter_decorator
 from .blueprints import user_bp
 

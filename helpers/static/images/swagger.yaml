@@ -1,0 +1,128 @@
+openapi: 3.0.0
+info:
+  title: Food API
+  description: API for managing food and favorite foods.
+  version: "1.0.0"
+paths:
+  /foods:
+    post:
+      summary: Create a new food item
+      description: |
+        This endpoint allows users to create a new food item in the database. 
+        The food item includes details such as category, title, description, picture, and ingredients.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                category:
+                  type: string
+                  description: The category of the food item (e.g., Vegan, Dessert).
+                title:
+                  type: string
+                  description: The title or name of the food item.
+                description:
+                  type: string
+                  description: A detailed description of the food item.
+                picture:
+                  type: string
+                  description: The URL or path to an image of the food item.
+                ingredients:
+                  type: string
+                  description: A list of ingredients used in the food item.
+      responses:
+        "201":
+          description: Food created successfully
+
+  /foods/{food_id}:
+    get:
+      summary: Get food details
+      description: |
+        This endpoint allows users to retrieve details of a specific food item by its ID.
+        The response includes information such as the food's category, title, description, picture, and ingredients.
+      parameters:
+        - name: food_id
+          in: path
+          required: true
+          schema:
+            type: integer
+          description: The unique identifier for the food item.
+      responses:
+        "200":
+          description: Successful response with the food details.
+
+    put:
+      summary: Update food details
+      description: |
+        This endpoint allows users to update the details of a specific food item by its ID.
+        You can modify the food item's category, title, description, picture, and ingredients.
+      parameters:
+        - name: food_id
+          in: path
+          required: true
+          schema:
+            type: integer
+          description: The unique identifier for the food item to be updated.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                category:
+                  type: string
+                  description: The new category of the food item.
+                title:
+                  type: string
+                  description: The new title or name of the food item.
+                description:
+                  type: string
+                  description: The new description of the food item.
+                picture:
+                  type: string
+                  description: The new image URL or path of the food item.
+                ingredients:
+                  type: string
+                  description: The updated list of ingredients used in the food item.
+      responses:
+        "200":
+          description: Food updated successfully
+        "404":
+          description: Food not found
+
+    delete:
+      summary: Delete a food item
+      description: |
+        This endpoint allows users to delete a specific food item by its ID. 
+        After successful deletion, the food item will no longer be available in the system.
+      parameters:
+        - name: food_id
+          in: path
+          required: true
+          schema:
+            type: integer
+          description: The unique identifier for the food item to be deleted.
+      responses:
+        "200":
+          description: Food deleted successfully
+        "404":
+          description: Food not found
+
+components:
+  schemas:
+    Food:
+      type: object
+      properties:
+        category:
+          type: string
+        title:
+          type: string
+        description:
+          type: string
+        picture:
+          type: string
+        ingredients:
+          type: string

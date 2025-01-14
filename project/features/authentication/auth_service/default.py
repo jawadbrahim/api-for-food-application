@@ -34,6 +34,7 @@ class Default(AbstractionAuthService):
      token_id,token_str=self.generate_token()
      self.data_access.update_token_id(account.id,token_id)
      return AuthCreated(
+         id=account.id,
          email=account.id,
          password=account.password,
          created_at=account.created_at,

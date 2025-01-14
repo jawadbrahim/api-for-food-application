@@ -1,6 +1,5 @@
 from .abstraction import AbstractionUserService
 from ..exceptions import FailedToCreateUser,UserNotExist,AccountAlreadyCreated
-import logging
 class DefaultUserService(AbstractionUserService):
 
     def __init__(self,data_access):

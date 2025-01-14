@@ -8,8 +8,7 @@ paths:
     post:
       summary: Create a new food item
       description: |
-        This endpoint allows users to create a new food item in the database. 
-        The food item includes details such as category, title, description, picture, and ingredients.
+        This endpoint allows users to create a new food item in the database.
       requestBody:
         required: true
         content:
@@ -19,7 +18,7 @@ paths:
               properties:
                 category:
                   type: string
-                  description: The category of the food item (e.g., Vegan, Dessert).
+                  description: The category of the food item.
                 title:
                   type: string
                   description: The title or name of the food item.
@@ -35,13 +34,21 @@ paths:
       responses:
         "201":
           description: Food created successfully
+          content:
+            application/json:
+              example:
+                id: 1
+                category: "Dessert"
+                title: "Chocolate Cake"
+                description: "A delicious chocolate cake."
+                picture: "http://example.com/image.jpg"
+                ingredients: "Flour, sugar, chocolate"
 
   /foods/{food_id}:
     get:
       summary: Get food details
       description: |
         This endpoint allows users to retrieve details of a specific food item by its ID.
-        The response includes information such as the food's category, title, description, picture, and ingredients.
       parameters:
         - name: food_id
           in: path
@@ -52,12 +59,22 @@ paths:
       responses:
         "200":
           description: Successful response with the food details.
+          content:
+            application/json:
+              example:
+                id: 1
+                category: "Dessert"
+                title: "Chocolate Cake"
+                description: "A delicious chocolate cake."
+                picture: "http://example.com/image.jpg"
+                ingredients: "Flour, sugar, chocolate"
+        "404":
+          description: Food not found
 
     put:
       summary: Update food details
       description: |
         This endpoint allows users to update the details of a specific food item by its ID.
-        You can modify the food item's category, title, description, picture, and ingredients.
       parameters:
         - name: food_id
           in: path
@@ -74,30 +91,33 @@ paths:
               properties:
                 category:
                   type: string
-                  description: The new category of the food item.
                 title:
                   type: string
-                  description: The new title or name of the food item.
                 description:
                   type: string
-                  description: The new description of the food item.
                 picture:
                   type: string
-                  description: The new image URL or path of the food item.
                 ingredients:
                   type: string
-                  description: The updated list of ingredients used in the food item.
       responses:
         "200":
           description: Food updated successfully
+          content:
+            application/json:
+              example:
+                id: 1
+                category: "Main Course"
+                title: "Spaghetti Bolognese"
+                description: "A savory pasta dish."
+                picture: "http://example.com/spaghetti.jpg"
+                ingredients: "Spaghetti, meat, tomato sauce"
         "404":
           description: Food not found
 
     delete:
       summary: Delete a food item
       description: |
-        This endpoint allows users to delete a specific food item by its ID. 
-        After successful deletion, the food item will no longer be available in the system.
+        This endpoint allows users to delete a specific food item by its ID.
       parameters:
         - name: food_id
           in: path
@@ -110,19 +130,3 @@ paths:
           description: Food deleted successfully
         "404":
           description: Food not found
-
-components:
-  schemas:
-    Food:
-      type: object
-      properties:
-        category:
-          type: string
-        title:
-          type: string
-        description:
-          type: string
-        picture:
-          type: string
-        ingredients:
-          type: string

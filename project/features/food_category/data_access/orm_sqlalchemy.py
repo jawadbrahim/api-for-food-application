@@ -5,19 +5,25 @@ from project.module.ormsqlachemy import OrmSqlalchemy
 from flask import url_for
 import json
 from project.features.food_category.storage.google_storage import upload_to_gcs
-class OrmSqlalchemyFoodCategory(AbstractionDataAccess,OrmSqlalchemy):
-
+class OrmSqlalchemyFoodCategory(AbstractionDataAccess, OrmSqlalchemy):
  def create_food(self, category, title, description, picture, ingredients):
-    relative_picture_path = f"images/{picture}"
-    food = Foods(
-        category=category,
-        title=title,
-        description=description,
-        picture=relative_picture_path,
-        ingredients=ingredients,
-    )
-    self.add(food)
-    return food
+        source_file_path = f"C:/Python/improve/helpers/static/images/{picture}"
+        destination_blob_name = f"images/{picture}"
+
+
+        picture_url = upload_to_gcs(bucket_name="imagefoods", 
+                                        source_file_path=source_file_path, 
+                                        destination_blob_name=destination_blob_name)
+            
+        food = Foods(
+                category=category,
+                title=title,
+                description=description,
+                picture=picture_url,
+                ingredients=ingredients,
+            )
+        self.add(food)
+        return food
 
  def get_food_by_id(self, food_id):
     food = Foods.query.filter(Foods.id == food_id).first()
@@ -27,7 +33,7 @@ class OrmSqlalchemyFoodCategory(AbstractionDataAccess,OrmSqlalchemy):
             "category": food.category,
             "title": food.title,
             "description": food.description,
-            "picture": url_for('static',filename=food.picture,_external=True).replace("127.0.0.1","192.168.1.1"),
+            "picture": food.picture,
             "ingredients": food.ingredients
         }
         return json.dumps(food_data,ensure_ascii=False)
@@ -45,7 +51,7 @@ class OrmSqlalchemyFoodCategory(AbstractionDataAccess,OrmSqlalchemy):
         food_data = {
             "title": food.title,
             "description": food.description,
-            "picture": url_for('static', filename=food.picture, _external=True),
+            "picture": food.picture,
             "ingredients": food.ingredients
         }
         grouped_food[category].append(food_data)

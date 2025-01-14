@@ -3,7 +3,7 @@ from project.model.token import Token
 from project.model.user import User
 from .abstraction import AbstractionDataAccess
 from project.module.ormsqlachemy import OrmSqlalchemy as Orm
-from ..data_classes import AuthCreated
+from ..data_classes import AuthCreated,Login
 
 class OrmSqlalchemy(AbstractionDataAccess,Orm):
 

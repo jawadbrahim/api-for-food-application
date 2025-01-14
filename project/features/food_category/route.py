@@ -4,7 +4,9 @@ from.blueprint import foods_bp
 from .request_validator import request_validator
 from ...decorators.validate import validate_schema
 from ...decorators.request_limit import rate_limiter_decorator
+from ...decorators.api_key import api_key_required
 @foods_bp.route("/foods", methods=["POST"])
+@api_key_required
 @request_validator.validate_create_food()
 def create_foods(validated_data):
     controller = FoodController()
@@ -12,6 +14,7 @@ def create_foods(validated_data):
     return response, 201
 
 @foods_bp.route("/foods/<int:food_id>", methods=["GET"])
+@api_key_required
 @rate_limiter_decorator()
 def get_food(food_id):
     controller = FoodController()
